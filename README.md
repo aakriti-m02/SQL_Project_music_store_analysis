@@ -78,10 +78,10 @@ customer name, artist name and total spent
 
 WITH best_selling_artist AS (
     select artist.artist_id, artist.name as artist_name, sum(invoice_line.unit_price*invoice_line.quantity) as total_sales
-	from invoice_line
+    from invoice_line
     join track
     on invoice_line.track_id=track.track_id
-	join album2
+    join album2
     on track.album_id=album2.album_id
     join artist
     on album2.artist_id=artist.artist_id
@@ -132,7 +132,7 @@ much they spent. For countries where the top amount spent is shared, provide all
 customers who spent this amount
 
 WITH customer_country_amount AS (
-	select customer.customer_id, customer.first_name, customer.last_name, invoice.billing_country, sum(invoice.total) as total,
+    select customer.customer_id, customer.first_name, customer.last_name, invoice.billing_country, sum(invoice.total) as total,
     ROW_NUMBER() OVER(partition by invoice.billing_country order by sum(invoice.total) DESC) as RowNo
     from customer
     join invoice 
